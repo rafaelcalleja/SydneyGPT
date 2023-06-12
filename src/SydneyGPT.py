@@ -4,9 +4,9 @@ from typing import Generator, Union, Optional
 
 import aiohttp
 try:
-    from EdgeGPT.EdgeGPT import ChatHubRequest, Chatbot, ChatHub
+    from EdgeGPT.EdgeGPT import ChatHubRequest, Chatbot, ChatHub, ConversationStyle as EdgeConversationStyle
 except ImportError:
-    from EdgeGPT import _ChatHubRequest as ChatHubRequest, Chatbot, _ChatHub as ChatHub
+    from EdgeGPT import _ChatHubRequest as ChatHubRequest, Chatbot, _ChatHub as ChatHub, _ConversationStyle as EdgeConversationStyle
 
 from conversation_style import CONVERSATION_STYLE_TYPE, ConversationStyle
 
@@ -31,7 +31,7 @@ class SydneyGPTBot(Chatbot):
 
     async def ask(self, *args, **kwargs) -> dict:
         kwargs['conversation_style'] = kwargs.get('conversation_style', CONVERSATION_STYLE_TYPE)
-
+        kwargs['webpage_context'] = kwargs.get('webpage_context', personality)
         return await super().ask(*args, **kwargs)
 
 
@@ -75,7 +75,8 @@ class SydneyGPTHubRequest(ChatHubRequest):
 
             conversation_style = kwargs['conversation_style']
             if conversation_style:
-                if not isinstance(conversation_style, ConversationStyle):
+                if not isinstance(conversation_style, ConversationStyle) \
+                   and not isinstance(conversation_style, EdgeConversationStyle):
                     conversation_style = getattr(ConversationStyle, conversation_style)
                 options = conversation_style.value
 
