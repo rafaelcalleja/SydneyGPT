@@ -1,6 +1,6 @@
 from SydneyGPT import SydneyGPTBot
 import EdgeGPT.EdgeGPT as EdgeGPT_module
-from EdgeGPT.EdgeUtils import Query
+from EdgeGPT.EdgeUtils import Query as BaseQuery
 
 create_method = EdgeGPT_module.Chatbot.create
 
@@ -18,6 +18,6 @@ async def new_create(*args, **kwargs):
 EdgeGPT_module.Chatbot.create = staticmethod(new_create)
 
 
-class SydneyQuery(Query):
-    async def send_to_bing(self, *args, **kwargs) -> str:
-        return await super().send_to_bing(*args, **kwargs)
+class Query(BaseQuery):
+    pass
+
