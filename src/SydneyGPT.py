@@ -53,7 +53,6 @@ class SydneyGPTHubRequest(ChatHubRequest):
         super().update(*args, **kwargs)
 
         if kwargs['webpage_context']:
-            self.invocation_id = 0
             options = self.struct["arguments"][0]["optionsSets"]
 
             conversation_style = kwargs['conversation_style']
@@ -66,7 +65,7 @@ class SydneyGPTHubRequest(ChatHubRequest):
                 "arguments": [
                     {
                         "optionsSets": options,
-                        "isStartOfSession": self.invocation_id == 0,
+                        "isStartOfSession": True,
                         "previousMessages": [{
                             "author": 'user',
                             "description": MessageEncode()(message=kwargs['webpage_context']),
@@ -80,10 +79,6 @@ class SydneyGPTHubRequest(ChatHubRequest):
 
             for key, value in struct["arguments"][0].items():
                 self.struct["arguments"][0][key] = value
-
-            self.invocation_id += 1
-
-
 
 
 class MessageEncode:
