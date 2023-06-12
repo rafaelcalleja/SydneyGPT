@@ -2,6 +2,7 @@ import asyncio
 import random
 from typing import Generator, Union, Optional
 
+import aiohttp
 from EdgeGPT.EdgeGPT import ChatHubRequest, Chatbot, Conversation, ChatHub
 from conversation_style import CONVERSATION_STYLE_TYPE, ConversationStyle
 
@@ -38,8 +39,21 @@ class SydneyGPTHub(ChatHub):
     async def ask_stream(self, *args, **kwargs) -> Generator[bool, Union[dict, str], None]:
         kwargs['conversation_style'] = kwargs.get('conversation_style', CONVERSATION_STYLE_TYPE)
 
-        async for key, value in super().ask_stream(*args, **kwargs):
-            yield key, value
+        try:
+            origin_aenter = aiohttp.ClientSession.__aenter__
+
+            async def patched_aenter(session):
+                self.wss_session = session
+                return await origin_aenter(session)
+
+            aiohttp.ClientSession.__aenter__ = patched_aenter
+
+            async for key, value in super().ask_stream(*args, **kwargs):
+                yield key, value
+        finally:
+            aiohttp.ClientSession.__aenter__ = origin_aenter
+            await self.wss_session.close()
+
 
 
 class SydneyGPTHubRequest(ChatHubRequest):
