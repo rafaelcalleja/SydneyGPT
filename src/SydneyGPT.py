@@ -56,7 +56,6 @@ class SydneyGPTHub(ChatHub):
                 await wss_session.close()
 
 
-
 class SydneyGPTHubRequest(ChatHubRequest):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
