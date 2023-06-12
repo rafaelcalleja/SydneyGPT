@@ -1,6 +1,11 @@
-from SydneyGPT import SydneyGPTBot
-import EdgeGPT.EdgeGPT as EdgeGPT_module
-from EdgeGPT.EdgeUtils import Query as BaseQuery
+from SydneyGPT.SydneyGPT import SydneyGPTBot
+try:
+    import EdgeGPT.EdgeGPT as EdgeGPT_module
+    from EdgeGPT.EdgeUtils import Query as BaseQuery
+except ImportError:
+    import EdgeGPT as EdgeGPT_module
+    from EdgeUtils import Query as BaseQuery
+
 
 create_method = EdgeGPT_module.Chatbot.create
 
