@@ -3,7 +3,11 @@ import random
 from typing import Generator, Union, Optional
 
 import aiohttp
-from EdgeGPT.EdgeGPT import ChatHubRequest, Chatbot, Conversation, ChatHub
+try:
+    from EdgeGPT.EdgeGPT import ChatHubRequest, Chatbot, ChatHub
+except ImportError:
+    from EdgeGPT import _ChatHubRequest as ChatHubRequest, Chatbot, _ChatHub as ChatHub
+
 from conversation_style import CONVERSATION_STYLE_TYPE, ConversationStyle
 
 
