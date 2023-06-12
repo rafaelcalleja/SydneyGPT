@@ -25,6 +25,7 @@ class SydneyGPTBot(Chatbot):
 
     async def ask_stream(self, *args, **kwargs) -> Generator[bool, dict | str, None]:
         kwargs['conversation_style'] = kwargs.get('conversation_style', CONVERSATION_STYLE_TYPE)
+        kwargs['webpage_context'] = kwargs.get('webpage_context', personality)
 
         async for key, value in super().ask_stream(*args, **kwargs):
             yield key, value
