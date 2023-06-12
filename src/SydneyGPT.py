@@ -38,12 +38,12 @@ class SydneyGPTHub(ChatHub):
 
     async def ask_stream(self, *args, **kwargs) -> Generator[bool, Union[dict, str], None]:
         kwargs['conversation_style'] = kwargs.get('conversation_style', CONVERSATION_STYLE_TYPE)
-
+        wss_session = None
+        origin_aenter = aiohttp.ClientSession.__aenter__
         try:
-            origin_aenter = aiohttp.ClientSession.__aenter__
-
             async def patched_aenter(session):
-                self.wss_session = session
+                nonlocal wss_session
+                wss_session = session
                 return await origin_aenter(session)
 
             aiohttp.ClientSession.__aenter__ = patched_aenter
@@ -52,7 +52,8 @@ class SydneyGPTHub(ChatHub):
                 yield key, value
         finally:
             aiohttp.ClientSession.__aenter__ = origin_aenter
-            await self.wss_session.close()
+            if wss_session:
+                await wss_session.close()
 
 
 
