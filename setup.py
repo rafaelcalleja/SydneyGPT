@@ -23,8 +23,7 @@ setup(
     project_urls={"Bug Report": "https://github.com/rafaelcalleja/SydneyGPT/issues/new"},
     entry_points={
         "console_scripts": [
-            "edge-gpt = EdgeGPT:main",
-            "edge-gpt-image = ImageGen:main",
+            "sydney-gpt = SydneyGPT:main",
         ],
     },
     install_requires=[
