@@ -1,24 +1,23 @@
-import asyncio
 import random
 from typing import Generator, Union, Optional
 
 import aiohttp
 try:
-    from EdgeGPT.EdgeGPT import ChatHubRequest, Chatbot, ChatHub, ConversationStyle as EdgeConversationStyle
+    from EdgeGPT.EdgeGPT import ChatHubRequest, Chatbot as EdgeChatBot, ChatHub, ConversationStyle as EdgeConversationStyle
 except ImportError:
-    from EdgeGPT import _ChatHubRequest as ChatHubRequest, Chatbot, _ChatHub as ChatHub, _ConversationStyle as EdgeConversationStyle
+    from EdgeGPT import _ChatHubRequest as ChatHubRequest, Chatbot as EdgeChatBot, _ChatHub as ChatHub, _ConversationStyle as EdgeConversationStyle
 
 from conversation_style import CONVERSATION_STYLE_TYPE, ConversationStyle
 
 
-class SydneyGPTBot(Chatbot):
+class Chatbot(EdgeChatBot):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
     @staticmethod
-    async def create(*args, **kwargs) -> 'SydneyGPTBot':
-        obj = await Chatbot.create(*args, **kwargs)
-        obj.__class__ = SydneyGPTBot
+    async def create(*args, **kwargs) -> 'Chatbot':
+        obj = await EdgeChatBot.create(*args, **kwargs)
+        obj.__class__ = Chatbot
         obj.chat_hub.__class__ = SydneyGPTHub
         obj.chat_hub.request.__class__ = SydneyGPTHubRequest
         return obj

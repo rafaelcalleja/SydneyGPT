@@ -1,6 +1,6 @@
 from EdgeGPT import main as EdgeGPTMain
 
-import SydneyGPTUtil
+import SydneyGPTUtils
 
 
 def main() -> None:
