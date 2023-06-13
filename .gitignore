@@ -129,6 +129,5 @@ dmypy.json
 .pyre/
 cookies.json
 output/*
-README.md
 .idea
 bing_cookies_1.json
