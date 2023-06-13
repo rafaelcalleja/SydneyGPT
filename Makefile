@@ -6,3 +6,8 @@ build:
 	python -m build
 ci:
 	python setup.py install
+
+.PHONY: test
+test:
+	python -m unittest discover -s test/SydneyGPT -t test/SydneyGPT
+
