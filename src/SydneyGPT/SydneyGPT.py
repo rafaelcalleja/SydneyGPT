@@ -87,7 +87,6 @@ class SydneyGPTHubRequest(ChatHubRequest):
                 "arguments": [
                     {
                         "optionsSets": options,
-                        "isStartOfSession": True,
                         "previousMessages": [{
                             "author": 'user',
                             "description": MessageEncode()(message=kwargs['webpage_context']),
