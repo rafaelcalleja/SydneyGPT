@@ -7,7 +7,7 @@ try:
 except ImportError:
     from EdgeGPT import _ChatHubRequest as ChatHubRequest, Chatbot as EdgeChatBot, _ChatHub as ChatHub, _ConversationStyle as EdgeConversationStyle
 
-from conversation_style import CONVERSATION_STYLE_TYPE, ConversationStyle
+from conversation_style import ConversationStyle
 
 
 class Chatbot(EdgeChatBot):
@@ -23,14 +23,14 @@ class Chatbot(EdgeChatBot):
         return obj
 
     async def ask_stream(self, *args, **kwargs) -> Generator[bool, dict | str, None]:
-        kwargs['conversation_style'] = kwargs.get('conversation_style', CONVERSATION_STYLE_TYPE)
+        kwargs['conversation_style'] = kwargs.get('conversation_style', "balanced")
         kwargs['webpage_context'] = kwargs.get('webpage_context', personality)
 
         async for key, value in super().ask_stream(*args, **kwargs):
             yield key, value
 
     async def ask(self, *args, **kwargs) -> dict:
-        kwargs['conversation_style'] = kwargs.get('conversation_style', CONVERSATION_STYLE_TYPE)
+        kwargs['conversation_style'] = kwargs.get('conversation_style', "balanced")
         kwargs['webpage_context'] = kwargs.get('webpage_context', personality)
         return await super().ask(*args, **kwargs)
 
@@ -42,7 +42,7 @@ class SydneyGPTHub(ChatHub):
         self.wss_session = None
 
     async def ask_stream(self, *args, **kwargs) -> Generator[bool, Union[dict, str], None]:
-        kwargs['conversation_style'] = kwargs.get('conversation_style', CONVERSATION_STYLE_TYPE)
+        kwargs['conversation_style'] = kwargs.get('conversation_style', "balanced")
         origin_aenter = aiohttp.ClientSession.__aenter__
         try:
             async def patched_aenter(session):
@@ -68,7 +68,7 @@ class SydneyGPTHubRequest(ChatHubRequest):
 
     def update(self, *args, **kwargs) -> None:
         kwargs['webpage_context'] = kwargs.get('webpage_context')
-        kwargs['conversation_style'] = kwargs.get('conversation_style', CONVERSATION_STYLE_TYPE)
+        kwargs['conversation_style'] = kwargs.get('conversation_style', "balanced")
 
         super().update(*args, **kwargs)
 
