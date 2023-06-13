@@ -25,7 +25,7 @@ With SydneyGPT, you'll be able to experience Sydney's incredible text generation
 To start using SydneyGPT:
 
 ```yaml
-pip install -r requirements.txt
+python3 -m pip install SydneyGPT --upgrade
 ```
 
 ## Usage Examples

@@ -25,7 +25,7 @@ Hasta el momento, el único jailbreak disponible en el repositorio es el cambio 
 Para comenzar a utilizar SydneyGPT:
 
 ```yaml
-pip install -r requirements.txt
+python3 -m pip install SydneyGPT --upgrade
 ```
 
 ## Ejemplos de uso
