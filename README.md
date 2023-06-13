@@ -10,7 +10,7 @@ Currently, the only available jailbreak in the repository is the personality swa
 - [node-chatgpt-api](https://github.com/waylaidwanderer/node-chatgpt-api)
 - [ChatSydney](https://github.com/InterestingDarkness/ChatSydney)
 - [bot-on-anything](https://github.com/zhayujie/bot-on-anything)
-- [make-safe-ai](https://github.com/lets-make-safe-ai/make-safe-ai)
+- [make-safe-ai](https://www.make-safe-ai.com/is-bing-chat-safe/)
 
 With SydneyGPT, you'll be able to experience Sydney's incredible text generation while maintaining compatibility with the original library's API! 😄🎉
 

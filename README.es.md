@@ -10,7 +10,7 @@ Hasta el momento, el único jailbreak disponible en el repositorio es el cambio 
 - [node-chatgpt-api](https://github.com/waylaidwanderer/node-chatgpt-api)
 - [ChatSydney](https://github.com/InterestingDarkness/ChatSydney)
 - [bot-on-anything](https://github.com/zhayujie/bot-on-anything)
-- [make-safe-ai](https://github.com/lets-make-safe-ai/make-safe-ai)
+- [make-safe-ai](https://www.make-safe-ai.com/is-bing-chat-safe/)
 
 ¡Con SydneyGPT, podrás experimentar la increíble generación de texto de Sydney mientras mantienes la compatibilidad con la API de la librería original! 😄🎉 
 
