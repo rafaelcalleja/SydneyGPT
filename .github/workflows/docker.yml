@@ -30,12 +30,12 @@ jobs:
         run: echo ::set-output name=ACTUAL_MAJOR_VERSION::$(echo $GITHUB_REF | cut -d / -f 3  | cut -d "." -f 1)
       - name: Docker compliant registry for image pushes
         id: registry
-        run: echo "REGISTRY=$(echo 'ghcr.io/${{github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+        run: echo "REGISTRY=$(echo 'docker.io/${{github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ghcr.io/${{ github.repository }}
+          images: docker.io/${{ github.repository }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         with:
