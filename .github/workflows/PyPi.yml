@@ -31,6 +31,8 @@ jobs:
         run: make build
       - name: Syntax CI
         run: make ci
+      - name: Run test
+        run: make test
 
   deploy:
     runs-on: ubuntu-latest
