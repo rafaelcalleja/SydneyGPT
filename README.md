@@ -16,6 +16,10 @@ With SydneyGPT, you'll be able to experience Sydney's incredible text generation
 
 🔗 [EdgeGPT](https://github.com/acheong08/EdgeGPT)
 
+## Requirements:
+- python 3.10+
+- EdgeGPT Requirements
+
 ## Setup
 
 To start using SydneyGPT:

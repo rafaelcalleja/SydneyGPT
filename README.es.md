@@ -16,6 +16,10 @@ Hasta el momento, el único jailbreak disponible en el repositorio es el cambio 
 
 🔗 [EdgeGPT](https://github.com/acheong08/EdgeGPT)
 
+## Requisitos:
+- python 3.10+
+- Requisitos de EdgeGPT 
+
 ## Setup
 
 Para comenzar a utilizar SydneyGPT:
