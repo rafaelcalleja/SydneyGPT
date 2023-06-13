@@ -5,7 +5,7 @@ import aiohttp
 try:
     from EdgeGPT.EdgeGPT import ChatHubRequest, Chatbot as EdgeChatBot, ChatHub, ConversationStyle as EdgeConversationStyle
 except ImportError:
-    from EdgeGPT import _ChatHubRequest as ChatHubRequest, Chatbot as EdgeChatBot, _ChatHub as ChatHub, _ConversationStyle as EdgeConversationStyle
+    from EdgeGPT import _ChatHubRequest as ChatHubRequest, Chatbot as EdgeChatBot, _ChatHub as ChatHub, ConversationStyle as EdgeConversationStyle
 
 from conversation_style import ConversationStyle
 
@@ -58,7 +58,7 @@ class SydneyGPTHub(ChatHub):
 
     async def close(self) -> None:
         await super().close()
-        if self.wss_session:
+        if hasattr(self, 'wss_session') and self.wss_session:
             await self.wss_session.close()
 
 
