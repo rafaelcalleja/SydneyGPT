@@ -40,15 +40,14 @@ class SydneyGPTHub(ChatHub):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.request.__class__ = 'SydneyGPTHubRequest'
+        self.wss_session = None
 
     async def ask_stream(self, *args, **kwargs) -> Generator[bool, Union[dict, str], None]:
         kwargs['conversation_style'] = kwargs.get('conversation_style', CONVERSATION_STYLE_TYPE)
-        wss_session = None
         origin_aenter = aiohttp.ClientSession.__aenter__
         try:
             async def patched_aenter(session):
-                nonlocal wss_session
-                wss_session = session
+                self.wss_session = session
                 return await origin_aenter(session)
 
             aiohttp.ClientSession.__aenter__ = patched_aenter
@@ -57,8 +56,11 @@ class SydneyGPTHub(ChatHub):
                 yield key, value
         finally:
             aiohttp.ClientSession.__aenter__ = origin_aenter
-            if wss_session:
-                await wss_session.close()
+
+    async def close(self) -> None:
+        await super().close()
+        if self.wss_session:
+            await self.wss_session.close()
 
 
 class SydneyGPTHubRequest(ChatHubRequest):
@@ -99,6 +101,9 @@ class SydneyGPTHubRequest(ChatHubRequest):
 
             for key, value in struct["arguments"][0].items():
                 self.struct["arguments"][0][key] = value
+
+            if not self.struct["arguments"][0]["isStartOfSession"]:
+                self.struct["arguments"][0]["previousMessages"] = None
 
 
 class MessageEncode:
