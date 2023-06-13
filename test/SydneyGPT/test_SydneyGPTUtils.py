@@ -2,7 +2,13 @@ import unittest
 from unittest import mock
 from unittest.mock import MagicMock
 
-from EdgeGPT import EdgeUtils
+try:
+    namespace = 'EdgeGPT.EdgeUtils'
+    from EdgeGPT import EdgeUtils
+except (ImportError, ModuleNotFoundError):
+    namespace = 'EdgeUtils'
+    import EdgeUtils
+
 from retry import retry
 from SydneyGPT.SydneyGPTUtils import Query
 
@@ -16,9 +22,9 @@ class TestSydneyGPTUtils(unittest.TestCase):
     @staticmethod
     @retry(tries=3, delay=2)
     def do_query(query: str):
-        with    mock.patch('EdgeGPT.EdgeUtils.Cookie.import_data', return_value=None), \
-                mock.patch('EdgeGPT.EdgeUtils.Cookie.import_next', return_value=None), \
-                mock.patch('EdgeGPT.EdgeUtils.Cookie.files', return_value=['file1.txt', 'file2.txt']):
+        with    mock.patch(f"{namespace}.Cookie.import_data", return_value=None), \
+                mock.patch(f"{namespace}.Cookie.import_next", return_value=None), \
+                mock.patch(f"{namespace}.Cookie.files", return_value=['file1.txt', 'file2.txt']):
 
             mock_filepath = MagicMock()
             mock_filepath.name = '1'

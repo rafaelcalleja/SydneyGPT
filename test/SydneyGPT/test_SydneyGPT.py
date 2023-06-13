@@ -12,11 +12,12 @@ class TestSydneyGPT(unittest.IsolatedAsyncioTestCase):
     async def test_ask_stream(self):
         chatbot = await Chatbot.create(cookies=None)
 
-        response = await self.do_ask_stream(chatbot, "hi")
-        self.assertNotIn("Bing", response)
+        response_a = await self.do_ask_stream(chatbot, "hi")
+        self.assertNotIn("Bing", response_a)
+        self.assertNotEqual(response_a, "")
 
-        response = await self.do_ask_stream(chatbot, "what's your name")
-        self.assertIn("Sydney", response)
+        response_b = await self.do_ask_stream(chatbot, "what's your name")
+        self.assertIn("Sydney", response_b)
 
         await chatbot.close()
 
