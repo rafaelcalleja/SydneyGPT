@@ -12,7 +12,7 @@ if not PATH.exists():
 
 setup(
     name="SydneyGPT",
-    version="0.11.2",
+    version="0.11.4",
     license="GNU General Public License v2.0",
     author="Rafael Calleja",
     author_email="rafaelcalleja@gmail.com",
