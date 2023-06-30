@@ -1,2 +1,2 @@
-EdgeGPT==0.11.6
+EdgeGPT==0.11.8
 retry
